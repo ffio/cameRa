@@ -9,9 +9,8 @@ interface BaseProps {
   [key: string]: any;
 }
 const MediaCamera = forwardRef((props:BaseProps,ref)=>{
-  console.log('props :>> ', adapter.browserDetails.browser);
-  const{resetCamera,...rsetProps}=props;
-
+  console.log('props :>> ', adapter.browserDetails);
+  const{resetCamera}=props;
   const CAMERA_CONFIG={video: {
     facingMode: 'environment',
     width: 750, height: 1080
