@@ -72,7 +72,7 @@ function App() {
                 _,
                 {
                   transform: { scale },
-                  actions: { onFlipY, onFlipX, onRotateLeft, onRotateRight, onZoomOut, onZoomIn },
+                  actions: { onZoomOut, onZoomIn },
                 },
               ) => (
                 <Space size={18} className="toolbar-wrapper">
