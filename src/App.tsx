@@ -1,7 +1,8 @@
 
-import { Button, Flex } from 'antd'
-import MediaCamera from './component/mediaCamera'
 import { useRef, useState } from 'react'
+import { Button, Flex } from 'antd'
+import { CameraOutlined} from '@ant-design/icons';
+import MediaCamera from './component/mediaCamera'
 import './App.css'
 
 function App() {
@@ -11,16 +12,19 @@ function App() {
     setMainVisibility(false)
     cameraRef?.current?.show();
   }
+  const resetCamera=()=>{
+    setMainVisibility(true)
+  }
   const [mainVisibility,setMainVisibility]=useState(true);
 
   return (
     <>
       {mainVisibility?
         <Flex style={{marginTop:'50%'}} justify={'center'} align={'center'}>
-          <Button type="primary" onClick={openCamera}>拍照</Button>
+          <Button type="primary" onClick={openCamera}><CameraOutlined/></Button>
         </Flex>:null
       }
-      <MediaCamera ref={cameraRef}/>
+      <MediaCamera ref={cameraRef} resetCamera={resetCamera}/>
     </>
   )
 }
