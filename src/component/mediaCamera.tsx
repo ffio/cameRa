@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { forwardRef, useState,useImperativeHandle,useRef, useMemo } from 'react';
+import { forwardRef, useState,useImperativeHandle,useRef } from 'react';
 import { FloatButton } from 'antd';
 
 const MediaCamera = forwardRef((props,ref)=>{
+  console.log('props :>> ', props);
   const CAMERA_CONFIG={video: {
     facingMode: 'environment',
     width: 750, height: 1080
