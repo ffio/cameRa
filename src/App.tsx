@@ -38,7 +38,7 @@ function App() {
       content: (
         <>
           <img
-          style={{width:'100%',height:'auto'}}
+          style={{width:'auto',height:'200px'}}
           alt="Screen capture will be displayed here"
           src={data}
           ></img>
@@ -75,14 +75,10 @@ function App() {
                   actions: { onFlipY, onFlipX, onRotateLeft, onRotateRight, onZoomOut, onZoomIn },
                 },
               ) => (
-                <Space size={12} className="toolbar-wrapper">
-                  <DeleteOutlined onClick={onDeletePhoto} />
-                  <SwapOutlined rotate={90} onClick={onFlipY} />
-                  <SwapOutlined onClick={onFlipX} />
-                  <RotateLeftOutlined onClick={onRotateLeft} />
-                  <RotateRightOutlined onClick={onRotateRight} />
-                  <ZoomOutOutlined disabled={scale === 1} onClick={onZoomOut} />
-                  <ZoomInOutlined disabled={scale === 50} onClick={onZoomIn} />
+                <Space size={18} className="toolbar-wrapper">
+                  <DeleteOutlined style={{fontSize:24}} onClick={onDeletePhoto} />
+                  <ZoomOutOutlined style={{fontSize:24}} disabled={scale === 1} onClick={onZoomOut} />
+                  <ZoomInOutlined style={{fontSize:24}}  disabled={scale === 50} onClick={onZoomIn} />
                 </Space>
               ),
             }}
