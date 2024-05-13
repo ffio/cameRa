@@ -13,6 +13,8 @@ const MediaCamera = forwardRef((props:BaseProps,ref)=>{
   const{resetCamera}=props;
   const CAMERA_CONFIG={video: {
     facingMode: 'environment',
+    width: {min:320,max:1280},
+    height: {min:240,max:720}
   }, audio: false};
   const [visibility,setVisibility]=useState(false);
   const videoRef=useRef<any>(null);
