@@ -43,7 +43,8 @@ const MediaCamera = forwardRef((props:BaseProps,ref)=>{
         videoRef.current.srcObject = curr_stream;
       }
     } catch (err) {
-      alert("false")
+      alert("Media access denied");
+      backward();
     }
   }
   // do shot
