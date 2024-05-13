@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { forwardRef, useState,useImperativeHandle,useRef } from 'react';
-import { FloatButton,Modal } from 'antd';
+import { FloatButton,Image } from 'antd';
 import adapter from 'webrtc-adapter';
 import { CameraOutlined,CheckOutlined,CloseOutlined,RollbackOutlined} from '@ant-design/icons';
 
 interface BaseProps {
   resetCamera?:any;
+  getPhoto?:any;
   [key: string]: any;
 }
 const MediaCamera = forwardRef((props:BaseProps,ref)=>{
   console.log('props :>> ', adapter.browserDetails);
-  const{resetCamera}=props;
+  const{resetCamera,getPhoto}=props;
   const CAMERA_CONFIG={video: {
     facingMode: 'environment',
     width: {min:320,max:1280},
@@ -19,10 +20,10 @@ const MediaCamera = forwardRef((props:BaseProps,ref)=>{
   const [visibility,setVisibility]=useState(false);
   const videoRef=useRef<any>(null);
   const [file,setFile]=useState<any>(null);
-  const { confirm } = Modal;
+
 
   useImperativeHandle(ref, () => ({
-    show,hide
+    show,hide,getFile,resetFile,
   }));
   const show=()=>{
     setVisibility(true);
@@ -31,10 +32,16 @@ const MediaCamera = forwardRef((props:BaseProps,ref)=>{
   const hide=()=>{
     setVisibility(false);
   }
+  const resetFile=()=>{
+    setFile(null);
+  }
   // backward shotPage
   const backward=()=>{
     hide();
     resetCamera();
+  }
+  const getFile=()=>{
+    return file;
   }
   // call the mediaAuth
   async function detectiveCam(){
@@ -52,6 +59,7 @@ const MediaCamera = forwardRef((props:BaseProps,ref)=>{
   const shot=()=>{
     setFile(imageCapture());
   }
+
 
   // get Shot frame
   const imageCapture = () => {
@@ -87,35 +95,13 @@ const MediaCamera = forwardRef((props:BaseProps,ref)=>{
     detectiveCam();
   }
 
-  // use img in other place
-  const uploadFile=async () => {
-    const config = {
-      title: 'uploadFile!',
-      destroyOnClose:true,
-      maskClosable:false,
-      content: (
-        <>
-          <img
-          style={{width:'100%',height:'auto'}}
-          alt="Screen capture will be displayed here"
-          src={file}
-          ></img>
-        </>
-      ),
-      onOk() {
-        // this is place to do upload
-        return new Promise((resolve, reject) => {
-          setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-          console.log('upload base64 :>> ', file);
-        }).catch(() => console.log('Oops errors!'));
-      },
-      onCancel() {
-        setFile(null);
-        hide();
-      },
-    };
-    confirm(config);
+  // confirm Photo
+
+  const comfirmPhoto=()=>{
+    getPhoto(file);
+    backward();
   }
+
 
 
   return (
@@ -124,22 +110,24 @@ const MediaCamera = forwardRef((props:BaseProps,ref)=>{
           <video  ref={videoRef} playsInline autoPlay width={'100%'} height={'100%'} style={{display:file?'none':'block',objectFit: 'cover'}}/>
           {file?
             <>
-              <img
+              {/* <img
                 style={{width:'100%',height:'auto'}}
                 className="Frame"
                 alt="Screen capture will be displayed here"
                 src={file}
-              ></img>
+              ></img> */}
+              <Image src={file}/>
               <FloatButton.Group shape="circle" style={{ right: 24 }}>
-                <FloatButton icon={<CheckOutlined />} onClick={uploadFile}/>
+                <FloatButton icon={<CheckOutlined />} onClick={comfirmPhoto}/>
                 <FloatButton icon={<CloseOutlined/>} onClick={reShot}/>
+                <FloatButton icon={<RollbackOutlined/>} onClick={()=>{
+                  setFile(null);
+                  backward()
+                }}/>
               </FloatButton.Group>
             </>
             :
-            <FloatButton.Group shape="circle" style={{ right: 24 }}>
-              <FloatButton icon={<CameraOutlined/>} onClick={shot}/>
-              <FloatButton icon={<RollbackOutlined/>} onClick={backward}/>
-            </FloatButton.Group>
+            <FloatButton icon={<CameraOutlined/>} onClick={shot}/>
           }
         </div>
     ):null
