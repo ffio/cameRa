@@ -1,7 +1,7 @@
 
 import { useRef, useState } from 'react'
 import { Button, Flex,Modal,Image,Space } from 'antd'
-import { CameraOutlined,SwapOutlined,RotateLeftOutlined,RotateRightOutlined,ZoomOutOutlined,ZoomInOutlined,DeleteOutlined} from '@ant-design/icons';
+import { CameraOutlined,ZoomOutOutlined,ZoomInOutlined,DeleteOutlined} from '@ant-design/icons';
 import MediaCamera from './component/mediaCamera'
 import './App.css'
 
