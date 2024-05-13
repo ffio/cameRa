@@ -13,7 +13,6 @@ const MediaCamera = forwardRef((props:BaseProps,ref)=>{
   const{resetCamera}=props;
   const CAMERA_CONFIG={video: {
     facingMode: 'environment',
-    width: 750, height: 1080
   }, audio: false};
   const [visibility,setVisibility]=useState(false);
   const videoRef=useRef<any>(null);
@@ -120,7 +119,7 @@ const MediaCamera = forwardRef((props:BaseProps,ref)=>{
   return (
     visibility?(
         <div style={{height:'100vh'}}>
-          <video  ref={videoRef} playsInline autoPlay width={'100%'} style={{visibility:file?'hidden':'visible'}}/>
+          <video  ref={videoRef} playsInline autoPlay width={'100%'} height={'100%'} style={{visibility:file?'hidden':'visible',objectFit: 'cover'}}/>
           {file?
             <>
               <img
