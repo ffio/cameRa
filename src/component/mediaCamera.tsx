@@ -11,7 +11,7 @@ const MediaCamera = forwardRef((props,ref)=>{
   const [visibility,setVisibility]=useState(false);
   const videoRef=useRef<any>(null);
   // const [stream,setStream]=useState<any>(null);
-  const [file,setFile]=useState(null);
+  const [file,setFile]=useState<any>(null);
 
   useImperativeHandle(ref, () => ({
     show,hide
